@@ -8,10 +8,9 @@ services:
     container_name: laravel_app
     volumes:
       - ./src:/var/www/html
-    ports:
-      - "8001:8000"
-    depends_on:
-      - db
+    expose:
+      - "9000" # PHP-FPM mặc định
+
   nginx:
     image: nginx:alpine
     container_name: laravel_nginx
@@ -22,31 +21,17 @@ services:
       - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - app
-  # Dịch vụ MySQL
+
   db:
     image: mysql:8.0
     container_name: laravel_db
     environment:
-      MYSQL_DATABASE: laravel_db
-      MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_USER: laravel_user
-      MYSQL_PASSWORD: laravel_password
-    volumes:
-      - dbdata:/var/lib/mysql
+      MYSQL_DATABASE: dadn-iot
+      MYSQL_ROOT_PASSWORD: pass
     ports:
       - "3306:3306"
-
-  # Dịch vụ phpMyAdmin
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: laravel_phpmyadmin
-    depends_on:
-      - db
-    environment:
-      PMA_HOST: db
-      PMA_PORT: 3306
-    ports:
-      - "8080:80"
+    volumes:
+      - dbdata:/var/lib/mysql
 
 volumes:
   dbdata:
