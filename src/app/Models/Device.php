@@ -11,7 +11,7 @@ class Device extends Model
     //
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name', 'status', 'room_id'];
+    protected $fillable = ['name', 'Status'];
 
     public function room()
     {

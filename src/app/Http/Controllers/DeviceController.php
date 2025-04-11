@@ -20,9 +20,9 @@ class DeviceController extends Controller
         $data = $this->adafruit->getFeed($device);
         return response()->json($data);
     }
-    function handleDevice($feed,$status)
+    function handleDevice($feed,$roomId,$status)
     {
-        $data = $this->adafruit->handleDevice($feed,$status);
+        $data = $this->adafruit->handleDevice($feed,$roomId,$status);
         return response()->json($data);
     }
 
