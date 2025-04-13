@@ -1,13 +1,23 @@
 <script setup>
-defineProps({
+import {useRouter} from "vue-router";
+import Login from "@/pages/Login.vue";
+
+const props = defineProps({
   name: String,
   owner: String,
-  devicesCount: Number
+  devicesCount: Number,
+  id : Number
 });
+const router = useRouter()
+
+function goToRoomDetail() {
+
+  router.push({ name: 'RoomDetail', params: { id :props.id } })
+}
 </script>
 
 <template>
-  <div
+  <div @click="goToRoomDetail"
     class="bg-gradient-to-br from-blue-100 via-white to-white border border-blue-200 rounded-2xl shadow-lg p-6 hover:scale-[1.02] transition-transform duration-300"
   >
     <div class="flex items-center justify-between mb-4">

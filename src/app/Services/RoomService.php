@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Room;
+use App\Models\User;
 
 class RoomService
 {
@@ -12,6 +13,7 @@ class RoomService
         return $this->room->create([
             'name'=>$room['name'],
             'building_id'=>1,
+
         ]);
     }
     public function updateRoom(array $room,$id){
@@ -46,7 +48,7 @@ class RoomService
     }
     public function getRoomById(int $roomId){
         try {
-            $rom = $this->room->with('device')->find($roomId);
+            $rom = $this->room->with(['device', 'owner'])->find($roomId);
             return $rom;
         }catch (\Exception $e){
             return response()->json(['error' => $e->getMessage()], 403);
@@ -95,5 +97,11 @@ class RoomService
             return response()->json(['error' => $e->getMessage()], 403);
         }
     }
-
+    public function createRoomOwner($request, $userId){
+        $user = User::find($userId);
+        return $user->rooms()->create([
+            'name' => $request['name'],
+            'building_id' => 1
+        ]);
+}
 }

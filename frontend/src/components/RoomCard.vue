@@ -30,6 +30,7 @@ onMounted(()=>{
       :key="room.id"
       :name="room.name"
       :owner="room.owner.name"
+      :id="room.id"
       :devicesCount="room.device.length"
     />
 

@@ -58,7 +58,7 @@ const logout = async () => {
                 >Home</RouterLink
               >
               <RouterLink
-                to="/job/all"
+                to="/room/add"
                 :class="[
                   isActiveLink('/job/all') ? 'bg-green-900' : 'hover:bg-gray-900 hover:text-white',
                   'text-white',
@@ -66,20 +66,9 @@ const logout = async () => {
                   'py-2',
                   'rounded-md',
                 ]"
-                >Room</RouterLink
-              >
-              <RouterLink
-                v-if="isAdmin"
-                to="/job/add"
-                :class="[
-                  isActiveLink('/jobs/add') ? 'bg-green-900' : 'hover:bg-gray-900 hover:text-white',
-                  'text-white',
-                  'px-3',
-                  'py-2',
-                  'rounded-md',
-                ]"
                 >Add Room</RouterLink
               >
+
               <a
                 v-if="true"
                 @click="logout"

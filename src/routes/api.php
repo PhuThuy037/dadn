@@ -15,6 +15,9 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::get('/logout', [AuthController::class, 'logout']);
 Route::post('/user/{user}/update', [AuthController::class, 'updateUser']);
+Route::get('/user/all', [AuthController::class, 'getAllUsers']);
+Route::get('/user/no-room', [AuthController::class, 'getUserWithoutRoom']);
+
 
 //Device Route
 Route::prefix('devices')->group(function () {
@@ -37,5 +40,5 @@ Route::prefix('room')->group(function () {
     Route::get('/all', [\App\Http\Controllers\RoomController::class, 'getAllRoom']);
     Route::get('/{roomId}', [\App\Http\Controllers\RoomController::class, 'getRoom']);
     Route::post('/{roomId}/add-device', [\App\Http\Controllers\RoomController::class, 'addRoomDevice']);
-
+    Route::post('/{userId}/add', [\App\Http\Controllers\RoomController::class, 'addRoomAndOwner']);
 });

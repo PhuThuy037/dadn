@@ -38,4 +38,7 @@ class RoomController extends Controller
     public function deleteRoomDevice($roomId,$deviceId){
         return $this->room->deleteDevice($roomId,$deviceId);
     }
+    public function addRoomAndOwner(CreateRoomRequest $request,$userId){
+        return $this->room->createRoomOwner($request->validated(),$userId);
+    }
 }
