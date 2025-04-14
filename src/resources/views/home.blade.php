@@ -84,19 +84,19 @@
                     Laravel App
                 </a>
                 <div class="nav-links">
-                    @auth
-                        <span class="nav-link">Xin chào, {{ Auth::user()->name }}</span>
-                        
-                        <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
-                            @csrf
-                            <button type="submit" class="logout-btn">Đăng xuất</button>
-                        </form>
-                    @else
-                        <a href="{{ route('login') }}" class="nav-link">Đăng nhập</a>
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="nav-link">Đăng ký</a>
-                        @endif
-                    @endauth
+{{--                    @auth--}}
+{{--                        <span class="nav-link">Xin chào, {{ Auth::user()->name }}</span>--}}
+{{--                        --}}
+{{--                        <form action="{{ route('logout') }}" method="POST" style="margin: 0;">--}}
+{{--                            @csrf--}}
+{{--                            <button type="submit" class="logout-btn">Đăng xuất</button>--}}
+{{--                        </form>--}}
+{{--                    @else--}}
+{{--                        <a href="{{ route('login') }}" class="nav-link">Đăng nhập</a>--}}
+{{--                        @if (Route::has('register'))--}}
+{{--                            <a href="{{ route('register') }}" class="nav-link">Đăng ký</a>--}}
+{{--                        @endif--}}
+{{--                    @endauth--}}
                 </div>
             </div>
         </div>
@@ -108,7 +108,7 @@
                 <h1>Chào mừng bạn đến với trang chủ</h1>
                 <p>Bạn đã đăng nhập thành công vào ứng dụng Laravel.</p>
             </div>
-            
+
             @auth
                 <div class="welcome-card">
                     <h2>Thông tin tài khoản</h2>

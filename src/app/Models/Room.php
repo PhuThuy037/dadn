@@ -8,20 +8,19 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Room extends Model
 {
-    //
-    //
+
     use HasFactory,SoftDeletes;
 
-    protected $fillable = ['name', 'building_id'];
+    protected $fillable = ['name', 'building_id','user_id'];
 
     public function building()
     {
         return $this->belongsTo(Building::class);
     }
 
-    public function users()
+    public function owner()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function device()

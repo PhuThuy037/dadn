@@ -36,6 +36,15 @@ class AuthController extends Controller
 
         return $this->authService->updateUser($request->validated(),(int) $user->id);
     }
+    public function getAllUsers()
+    {
+        return $this->authService->getAllUsers();
+    }
+
+    public function getUserWithoutRoom(){
+
+       return $this->authService->getUsersWithoutRoom();
+    }
 
     public function home()
     {

@@ -13,12 +13,12 @@ class UserService
 
     public function register(array $data){
         try {
-
+            $role = (isset($data['role']) && $data['role'] === 'admin') ? 'admin' : 'user';
             $user = $this->user->create([
                 'name' => $data['name'],
                 'email' =>$data['email'],
                 'password' => Hash::make($data['password']),
-                'role' => $data['role'],
+                'role' => $role,
             ]);
             return response()->json([
                 'message' => 'User registered successfully',
@@ -93,6 +93,31 @@ class UserService
             return response()->json([
                 'error' => $e->getMessage()
             ], 500);
+        }
+    }
+
+    public function getAllUsers(){
+        try {
+            $user = $this->user::where('role','user')->get();
+            return response()->json([
+                'user' => $user
+            ]);
+        }catch (\Exception $e){
+            return response()->json(['error' => $e->getMessage()], 403);
+        }
+    }
+    public function getUsersWithoutRoom()
+    {
+        try {
+            $users = User::where('role', 'user')
+                ->whereDoesntHave('rooms')
+                ->get();
+
+            return response()->json([
+                'users' => $users
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 

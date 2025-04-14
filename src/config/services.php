@@ -34,5 +34,10 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+// Adafruit
+    'adafruit' => [
+        'username' => env('ADAFRUIT_USERNAME'),
+        'key' => env('ADAFRUIT_KEY'),
+    ],
 
 ];
