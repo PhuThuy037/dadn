@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { toggleDeviceStatus, getDeviceStatus } from '@/Helper/deviceService'
+import {toggleDeviceStatus, getDeviceStatus, sendTelegramMessage} from '@/Helper/deviceService'
 import axiosClient from "@/axiosCustom.js";
 
 const props = defineProps({
@@ -17,7 +17,7 @@ const props = defineProps({
 
 
 const deleteThisDevice = () => {
-  console.log(props.device.id)
+
   props.onDelete(props.device.id)
 }
 
@@ -26,7 +26,7 @@ const isOn = ref(false)
 
 const fetchDeviceStatus = async () => {
   try {
-    const res = await getDeviceStatus(props.device.id)
+    const res = await getDeviceStatus(props.device.name)
     isOn.value = res.data.status === 1
   } catch (e) {
     console.error('Lỗi khi lấy trạng thái thiết bị', e)
@@ -41,8 +41,11 @@ const toggleLED = async () => {
   const newStatus = isOn.value ? 0 : 1
 
   try {
-    await toggleDeviceStatus(props.device.room_id, props.device.id, newStatus)
+    await toggleDeviceStatus(props.device.room_id, props.device.name, newStatus)
     isOn.value = !isOn.value
+    const action = isOn.value ? 'Bật' : 'Tắt'
+    const message = `💡 Thiết bị LED đã được ${action}`
+    await sendTelegramMessage(message)
     console.log(`[LED ${props.device.name}] đã gửi lệnh: ${newStatus}`)
   } catch (error) {
     console.error('Không thể cập nhật trạng thái thiết bị', error)

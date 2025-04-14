@@ -13,17 +13,46 @@ Route::get('/user', function (Request $request) {
 // Auth rotue
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
-Route::get('/logout', [AuthController::class, 'logout']);
+
 Route::post('/user/{user}/update', [AuthController::class, 'updateUser']);
-Route::get('/user/all', [AuthController::class, 'getAllUsers']);
-Route::get('/user/no-room', [AuthController::class, 'getUserWithoutRoom']);
 
 
-//Device Route
-Route::prefix('devices')->group(function () {
-    Route::get('/{device}', [DeviceController::class, 'getDeviceStatus']);
-    Route::post('/{device}/room/{roomId}/status/{status}', [DeviceController::class, 'handleDevice']);
+
+Route::middleware('auth:sanctum')->group(function () {
+
+//    User Room route
+
+    Route::prefix('room')->group(function () {
+        Route::get('/all', [\App\Http\Controllers\RoomController::class, 'getAllRoom']);
+        Route::get('/{roomId}', [\App\Http\Controllers\RoomController::class, 'getRoom']);
+    });
+//    Admin route
+    Route::middleware('AuthAdmin')->group(function () {
+        Route::get('/user/all', [AuthController::class, 'getAllUsers']);
+        Route::get('/user/no-room', [AuthController::class, 'getUserWithoutRoom']);
+
+        //Admin Room route
+        Route::prefix('room')->group(function () {
+            Route::post('/create', [\App\Http\Controllers\RoomController::class, 'createRoom']);
+            Route::put('/{roomId}', [\App\Http\Controllers\RoomController::class, 'updateRoom']);
+            Route::delete('/{roomId}/remove-device/{deviceId}', [\App\Http\Controllers\RoomController::class, 'deleteRoomDevice']);
+            Route::delete('/{roomId}', [\App\Http\Controllers\RoomController::class, 'deleteRoom']);
+//            Route::get('/all', [\App\Http\Controllers\RoomController::class, 'getAllRoom']);
+//            Route::get('/{roomId}', [\App\Http\Controllers\RoomController::class, 'getRoom']);
+            Route::post('/{roomId}/add-device', [\App\Http\Controllers\RoomController::class, 'addRoomDevice']);
+            Route::post('/{userId}/add', [\App\Http\Controllers\RoomController::class, 'addRoomAndOwner']);
+        });
+    });
+
+    Route::get('/logout', [AuthController::class, 'logout']);
+    Route::prefix('devices')->group(function () {
+        Route::get('/{device}', [DeviceController::class, 'getDeviceStatus']);
+        Route::post('/{device}/room/{roomId}/status/{status}', [DeviceController::class, 'handleDevice']);
+    });
+
 });
+
+
 
 
 
@@ -32,13 +61,4 @@ Route::prefix('devices')->group(function () {
 Route::post('/building/create', [BuildingController::class, 'createBuilding']);
 
 //Room
-Route::prefix('room')->group(function () {
-    Route::post('/create', [\App\Http\Controllers\RoomController::class, 'createRoom']);
-    Route::put('/{roomId}', [\App\Http\Controllers\RoomController::class, 'updateRoom']);
-    Route::delete('/{roomId}/remove-device/{deviceId}', [\App\Http\Controllers\RoomController::class, 'deleteRoomDevice']);
-    Route::delete('/{roomId}', [\App\Http\Controllers\RoomController::class, 'deleteRoom']);
-    Route::get('/all', [\App\Http\Controllers\RoomController::class, 'getAllRoom']);
-    Route::get('/{roomId}', [\App\Http\Controllers\RoomController::class, 'getRoom']);
-    Route::post('/{roomId}/add-device', [\App\Http\Controllers\RoomController::class, 'addRoomDevice']);
-    Route::post('/{userId}/add', [\App\Http\Controllers\RoomController::class, 'addRoomAndOwner']);
-});
+

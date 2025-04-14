@@ -10,13 +10,13 @@ const axiosClient = axios.create({
 })
 
 axiosClient.interceptors.request.use((config) => {
-  // let token = localStorage.getItem('auth_token')
+  let token = localStorage.getItem('token')
 
-  // if (token) {
-  //   token = decodeURIComponent(token)
-  //   console.log(token)
-  //   config.headers.Authorization = `Bearer ${token}`
-  // }
+  if (token) {
+    token = decodeURIComponent(token)
+    console.log(token)
+    config.headers.Authorization = `Bearer ${token}`
+  }
 
   return config
 })

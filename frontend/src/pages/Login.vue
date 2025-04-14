@@ -4,7 +4,7 @@ import axiosClient from '@/axiosCustom.js'
 import router from '@/router/index.js'
 import { useToast } from 'vue-toast-notification'
 import axios from 'axios'
-// import useUserStore from '@/stores/user.js'
+import useUserStore from '@/stores/user.js'
 
 
 const toast = useToast()
@@ -12,17 +12,16 @@ const data = ref({
   email: '',
   password: '',
 })
-// const userStore = useUserStore()
+const userStore = useUserStore()
 const errorMessage = ref('')
 
 async function submit() {
   try {
-    // await axios.get('/sanctum/csrf-cookie')
+    await axios.get('/sanctum/csrf-cookie')
     const res = await axiosClient.post('/login', data.value)
-
-    console.log(res.data.user)
-    // userStore.setUser(res.data.user)
-    localStorage.setItem('auth_token', res.data.auth_user)
+    localStorage.setItem('token', res.data.token);
+    userStore.setUser(res.data.user);
+    console.log(res.data.token);
     toast.success('Login successfully', {
       position: 'top',
     })
