@@ -1,0 +1,617 @@
+{
+	"info": {
+		"_postman_id": "0bf578ea-7482-4aee-a2ca-b08279ba6365",
+		"name": "DADN",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18348306"
+	},
+	"item": [
+		{
+			"name": "Adafruit",
+			"item": [
+				{
+					"name": "Get All Feed",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-AIO-Key",
+								"value": "aio_trkG309x5yjE2jyhWP7UR53tYAqI",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{ada}}api/v2/{{username}}/feeds/",
+							"host": [
+								"{{ada}}api"
+							],
+							"path": [
+								"v2",
+								"{{username}}",
+								"feeds",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get info on 1 feed",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-AIO-Key",
+								"value": "aio_trkG309x5yjE2jyhWP7UR53tYAqI",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{ada}}api/v2/{{username}}/feeds/bbc-led",
+							"host": [
+								"{{ada}}api"
+							],
+							"path": [
+								"v2",
+								"{{username}}",
+								"feeds",
+								"bbc-led"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send data Ada",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"value\" : 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ada}}api/v2/{{username}}/feeds/bbc-led/data?X-AIO-Key=aio_trkG309x5yjE2jyhWP7UR53tYAqI&",
+							"host": [
+								"{{ada}}api"
+							],
+							"path": [
+								"v2",
+								"{{username}}",
+								"feeds",
+								"bbc-led",
+								"data"
+							],
+							"query": [
+								{
+									"key": "X-AIO-Key",
+									"value": "aio_trkG309x5yjE2jyhWP7UR53tYAqI"
+								},
+								{
+									"key": "",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"thuy\",\r\n    \"email\" : \"thuy1@gmail.com\",\r\n    \"password\": \"abc\",\r\n    \"role\" : \"user\",\r\n    \"password_confirmation\" : \"abc\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{la}}/register",
+							"host": [
+								"{{la}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let res = pm.response.json();\r",
+									"pm.environment.set(\"auth_token\", res.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"thuy1@gmail.com\",\r\n    \"password\": \"abc\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{la}}/login",
+							"host": [
+								"{{la}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"thuy12\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{la}}/user/1/update",
+							"host": [
+								"{{la}}"
+							],
+							"path": [
+								"user",
+								"1",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All user",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{la}}/user/all",
+							"host": [
+								"{{la}}"
+							],
+							"path": [
+								"user",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User No room",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{la}}/user/no-room",
+							"host": [
+								"{{la}}"
+							],
+							"path": [
+								"user",
+								"no-room"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "18|tc2ew5l56dZHfL9T8vvyFLEcQM6n1zQr1AjY5jWPdbbcdcc5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{la}}/user",
+							"host": [
+								"{{la}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "37|DayxQ6BnAtkpsbbGITKV9itxN3VVyHM2TB7Nk9PTd2a1606c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{la}}/logout",
+							"host": [
+								"{{la}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Device",
+			"item": [
+				{
+					"name": "get status",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{la}}/devices/bbc-led",
+							"host": [
+								"{{la}}"
+							],
+							"path": [
+								"devices",
+								"bbc-led"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "chang device satus",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{la}}/devices/bbc-led/status/0",
+							"host": [
+								"{{la}}"
+							],
+							"path": [
+								"devices",
+								"bbc-led",
+								"status",
+								"0"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Building",
+			"item": []
+		},
+		{
+			"name": "Room",
+			"item": [
+				{
+					"name": "Create Rom",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Sanh Chinh\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{la}}/room/create",
+							"host": [
+								"{{la}}"
+							],
+							"path": [
+								"room",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Room",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Room H7\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{la}}/room/4",
+							"host": [
+								"{{la}}"
+							],
+							"path": [
+								"room",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Device",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"BBC-LED\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{la}}/room/4/add-device",
+							"host": [
+								"{{la}}"
+							],
+							"path": [
+								"room",
+								"4",
+								"add-device"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Room",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{la}}/room/4",
+							"host": [
+								"{{la}}"
+							],
+							"path": [
+								"room",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All room",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{la}}/room/all",
+							"host": [
+								"{{la}}"
+							],
+							"path": [
+								"room",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Room",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{la}}/room/5",
+							"host": [
+								"{{la}}"
+							],
+							"path": [
+								"room",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete device on room",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{la}}/room/4/remove-device/1",
+							"host": [
+								"{{la}}"
+							],
+							"path": [
+								"room",
+								"4",
+								"remove-device",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add User Room",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Room of Dragon\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{la}}/room/6/add",
+							"host": [
+								"{{la}}"
+							],
+							"path": [
+								"room",
+								"6",
+								"add"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{auth_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
