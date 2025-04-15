@@ -14,14 +14,14 @@ Route::get('/user', function (Request $request) {
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 
-Route::post('/user/{user}/update', [AuthController::class, 'updateUser']);
+
 
 
 
 Route::middleware('auth:sanctum')->group(function () {
 
 //    User Room route
-
+    Route::post('/user/{user}/update', [AuthController::class, 'updateUser']);
     Route::prefix('room')->group(function () {
         Route::get('/all', [\App\Http\Controllers\RoomController::class, 'getAllRoom']);
         Route::get('/{roomId}', [\App\Http\Controllers\RoomController::class, 'getRoom']);
@@ -45,16 +45,14 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::get('/logout', [AuthController::class, 'logout']);
+
+//    Devices route
     Route::prefix('devices')->group(function () {
         Route::get('/{device}', [DeviceController::class, 'getDeviceStatus']);
         Route::post('/{device}/room/{roomId}/status/{status}', [DeviceController::class, 'handleDevice']);
     });
 
 });
-
-
-
-
 
 
 //Building Service
