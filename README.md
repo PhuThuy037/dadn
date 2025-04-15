@@ -1,39 +1,55 @@
-# Dự án Laravel với Docker
+# Đồ án đa nghành HCMUT - HK 241
 
-Đây là hướng dẫn cài đặt và chạy một dự án Laravel sử dụng Docker với Nginx, PHP-FPM, MySQL và phpMyAdmin.
+# TechStack
+ ```
+ PHP
+ LARAVEL
+ VUEJS
+ YOLO:BITS
+ ADAFRUIT
+ ```
 
-## ⚙️ Cấu hình file `.env`
 
-```env
-APP_NAME=Laravel
-APP_ENV=local
-APP_KEY=  # Tạo bằng lệnh `php artisan key:generate`
-APP_DEBUG=true
-APP_URL=http://localhost:8000
+## ⚙️ Run project `.env`
 
-DB_CONNECTION=mysql
-DB_HOST=db
-DB_PORT=3306
-DB_DATABASE=laravel_db
-DB_USERNAME=laravel_user
-DB_PASSWORD=laravel_password
+```
+Yêu cầu cài Docker + Node
 
-SESSION_DRIVER=database
+Tạo file .env ở src folder
+Copy toàn bộ file .env.example  qua .env
+
+Tạo file .env ở frontend folder(nếu chưa có)
+Copy toàn bộ file .env.example  qua .env
+
+
+```
+
+## Run docker
+
+```
+Chạy theo từng lệnh
+1. docker-compose build
+2. docker-compose up -d
+3. docker-compose exec app bash 
+4. composer install
+5. php migrate 
+ 
 ```
 
 ## Chạy Docker
-docker-compose up -d
-
-## Tạo bảng sessions (nếu dùng session database)
-
-docker exec -it laravel_app bash
-php artisan session:table
-php artisan migrate
-exit
 
 
-Truy cập
-Ứng dụng Laravel: http://localhost (hoặc http://localhost:8000 nếu đổi cổng)
-phpMyAdmin: http://localhost:8080
-User: laravel_user
-Password: laravel_password
+
+## Setup frontend
+
+```
+    cd frontend
+    npm install
+    npm run dev
+```
+
+
+## Access
+Frontend : localhost:5173
+Backend : localhost:8081/api
+
