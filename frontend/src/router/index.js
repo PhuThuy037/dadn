@@ -8,6 +8,7 @@ import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 import RoomDetail from "@/components/RoomDetail.vue";
 import AddRoom from "@/components/AddRoom.vue";
 import useUserStore from "@/stores/user.js";
+import UpdateUser from "@/pages/UpdateUser.vue";
 
 
 const requireAuth = async (to, from, next) => {
@@ -56,6 +57,13 @@ const router = createRouter({
       name: 'AddRoom',
       meta: { layout: DefaultLayout },
       component: AddRoom,
+      beforeEnter: requireAuth,
+    },
+    {
+      path: '/user/update',
+      name: 'UpdateUser',
+      meta: { layout: DefaultLayout },
+      component: UpdateUser,
       beforeEnter: requireAuth,
     },
 

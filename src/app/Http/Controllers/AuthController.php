@@ -26,10 +26,10 @@ class AuthController extends Controller
 
         return $this->authService->register($request->validated());
     }
-    public function logout(Request $request)
+    public function logout()
     {
 
-        return $this->authService->login($request);
+        return $this->authService->logout();
     }
     public function updateUser(UserUpdateInfoRequest $request, User $user)
     {

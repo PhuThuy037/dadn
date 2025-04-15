@@ -4,6 +4,8 @@ namespace App\Services;
 
 
 use App\Models\User;
+use http\Client\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 class UserService
 {
@@ -50,8 +52,9 @@ class UserService
             return response()->json(['error' => $e->getMessage()], 403);
         }
     }
-    public function logout(Request $request){
-        $request->user()->currentAccessToken()->delete();
+    public function logout(){
+        $user = Auth::user();
+        $user->currentAccessToken()->delete();
         return response()->json([
             'message' => 'Đăng xuất thành công'
         ], 200);

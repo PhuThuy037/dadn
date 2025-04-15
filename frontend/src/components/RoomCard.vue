@@ -2,7 +2,7 @@
 import { ref, onMounted } from "vue";
 import axiosClient from "@/axiosCustom";
 import { useToast } from 'vue-toast-notification'
-import Room from "@/components/Room.vue";
+import Room from "@/pages/Room.vue";
 const toast = useToast()
 const rooms = ref([]);
 

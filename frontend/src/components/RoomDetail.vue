@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import axiosClient from '@/axiosCustom'
 import TEMP from "@/components/Devices/TEMP.vue";
-
+import {useToast} from "vue-toast-notification";
 import LedDevice from "@/components/Devices/LedDevice.vue";
 import HUMIDITY from "@/components/Devices/HUMIDITY.vue";
 import RelayDevice from "@/components/Devices/RelayDevice.vue";
@@ -11,10 +11,12 @@ import FanDevice from "@/components/Devices/FanDevice.vue";
 import LightSensor from "@/components/Devices/LightSensor.vue";
 import router from "@/router/index.js";
 import useUserStore from "@/stores/user.js";
+
+
 const route = useRoute()
 const roomId = route.params.id
 const room = ref(null)
-
+const toast = useToast();
 
 const userStore = useUserStore()
 const isAdmin = ref(false)
@@ -53,8 +55,12 @@ const deviceComponentMap = {
 async function deleteDevice(deviceId){
   try {
     await axiosClient.delete(`/room/${roomId}/remove-device/${deviceId}`)
+    toast.success('Delete device successfully', {
+      position: 'top',
+    })
     room.value.device = room.value.device.filter(d => d.id !== deviceId)
   }catch (e){
+    toast.error("Delete device error")
     console.error('Lỗi xoá thiết bị:', e)
   }
 }
@@ -63,7 +69,13 @@ async function deleteRoom(){
   try {
     await axiosClient.delete(`/room/${roomId}`)
     await router.push({name: 'home'})
+    toast.success('Delete room successfully', {
+      position: 'top',
+    })
   }catch (e){
+    toast.success('Delete room fail', {
+      position: 'top',
+    })
     console.error('Lỗi xoá phòng:', e)
   }
 }
@@ -78,11 +90,16 @@ async function addDevice() {
     await axiosClient.post(`/room/${roomId}/add-device`, {
       name: selectedDevice.value,
     })
-    alert('Thêm thiết bị thành công!')
+    toast.success('Add devices successfully', {
+      position: 'top',
+    })
     selectedDevice.value = ''
     await getRoomDetail()
     showAddForm.value = false
   } catch (e) {
+    toast.error('Add devices fail', {
+      position: 'top',
+    })
     console.error('Lỗi thêm thiết bị:', e)
   }
 }
@@ -104,6 +121,7 @@ onMounted(async () => {
       <div class="flex flex-wrap gap-3 justify-end items-center">
         <!-- Nút Thêm Thiết Bị -->
         <button
+          v-if="isAdmin"
           @click="showAddForm = !showAddForm"
           class="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg shadow transition"
         >

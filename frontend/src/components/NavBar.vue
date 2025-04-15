@@ -29,12 +29,12 @@ const logout = async () => {
     await axiosClient.get('/logout')
     useUserStore.user = null
     router.push({ name: 'Login' })
-    toat.success('Logout Successfully', {
+    toast.success('Logout Successfully', {
       position: 'top',
     })
   } catch (e) {
     console.error(e)
-    toat.error('Error logout', {
+    toast.error('Error logout', {
       position: 'top',
     })
   }
@@ -76,7 +76,18 @@ const logout = async () => {
                 ]"
                 >Add Room</RouterLink
               >
+              <RouterLink
 
+                to="/user/update"
+                :class="[
+                  isActiveLink('/user/update') ? 'bg-green-900' : 'hover:bg-gray-900 hover:text-white',
+                  'text-white',
+                  'px-3',
+                  'py-2',
+                  'rounded-md',
+                ]"
+              >Update user</RouterLink
+              >
               <a
                 v-if="true"
                 @click="logout"
