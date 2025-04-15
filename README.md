@@ -13,6 +13,8 @@
 ## ⚙️ Run project `.env`
 
 ```
+Yêu cầu cài Docker + Node
+
 Tạo file .env ở src folder
 Copy toàn bộ file .env.example  qua .env
 
