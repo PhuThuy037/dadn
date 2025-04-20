@@ -1,6 +1,6 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue'
-import { getDeviceStatus } from '@/Helper/deviceService'
+import {getDeviceStatus, sendTelegramMessage} from '@/Helper/deviceService'
 
 const props = defineProps({
   onDelete: {
@@ -24,6 +24,9 @@ const fetchDeviceStatus = async () => {
     const res = await getDeviceStatus(props.device.name)
     console.log(res.data)
     humidityValue.value = res.data.last_value ?? 0
+    if(humidityValue.value >= 100){
+      await sendTelegramMessage(`Độ ẩm phòng quá cao , hiện nay độ ẩm là ${humidityValue.value} %`)
+    }
   } catch (e) {
     console.error('Lỗi khi lấy trạng thái thiết bị', e)
   }
@@ -50,7 +53,6 @@ const status = computed(() => {
         <path fill-rule="evenodd" d="M8.257 3.099c.366-.446.957-.693 1.561-.693h.364c.604 0 1.195.247 1.561.693L13.414 5H17a1 1 0 110 2h-1.07l-.948 9.022A2 2 0 0113.99 18H6.01a2 2 0 01-1.992-1.978L3.07 7H2a1 1 0 110-2h3.586l1.671-1.901zM7 9a1 1 0 012 0v5a1 1 0 11-2 0V9zm4 0a1 1 0 012 0v5a1 1 0 11-2 0V9z" clip-rule="evenodd" />
       </svg>
     </button>
-
     <div class="flex justify-between items-center mb-4">
       <h2 class="text-xl font-bold text-blue-600">💧 Độ ẩm</h2>
       <span

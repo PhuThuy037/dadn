@@ -25,6 +25,7 @@ Copy toàn bộ file .env.example  qua .env
 ```
 
 
+## Setup docker + backend
 
 ```
 Chạy theo từng lệnh
@@ -36,7 +37,7 @@ Chạy theo từng lệnh
  
 ```
 
-## Chạy Docker
+
 
 
 
@@ -55,3 +56,10 @@ Frontend : localhost:5173
 Backend : localhost:8081/api
 ```
 
+## Sau khi setup mỗi lần chạy 
+
+```
+    docker-compose up -d
+    cd frontend
+    npm run dev
+```

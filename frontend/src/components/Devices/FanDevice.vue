@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { toggleDeviceStatus, getDeviceStatus } from '@/Helper/deviceService'
+import {toggleDeviceStatus, getDeviceStatus, sendTelegramMessage} from '@/Helper/deviceService'
 
 const props = defineProps({
   device: Object,
@@ -21,6 +21,8 @@ const fetchDeviceStatus = async () => {
 const setFanLevel = async (newStatus) => {
   try {
     await toggleDeviceStatus(props.device.room_id, props.device.name, newStatus)
+    const message = `🌀 Thiết bị Quạt đã được bât`
+    await sendTelegramMessage(message)
     level.value = newStatus
   } catch (e) {
     console.error('Lỗi khi thay đổi mức độ gió:', e)
