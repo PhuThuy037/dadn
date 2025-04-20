@@ -46,7 +46,7 @@ class User extends Authenticatable
     ];
     public function rooms()
     {
-        return $this->hasMany(Room::class, 'user_id');
+        return $this->hasOne(Room::class, 'user_id');
     }
 
     protected static function boot()

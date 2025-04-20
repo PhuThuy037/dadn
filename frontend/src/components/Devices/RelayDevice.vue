@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { toggleDeviceStatus, getDeviceStatus } from '@/Helper/deviceService'
+import {toggleDeviceStatus, getDeviceStatus, sendTelegramMessage} from '@/Helper/deviceService'
 
 const props = defineProps({
   device: Object,
@@ -23,6 +23,10 @@ const toggleRelay = async () => {
   try {
     await toggleDeviceStatus(props.device.room_id, props.device.name, newStatus)
     isOn.value = !isOn.value
+
+    const action = isOn.value ? 'Bật' : 'Tắt'
+    const message = `🔌 Thiết bị Relay đã được ${action}`
+    await sendTelegramMessage(message)
   } catch (e) {
     console.error('Lỗi khi bật/tắt relay:', e)
   }

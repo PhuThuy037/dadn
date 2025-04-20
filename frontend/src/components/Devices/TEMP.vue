@@ -1,6 +1,6 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue'
-import { getDeviceStatus } from '@/Helper/deviceService'
+import {getDeviceStatus, sendTelegramMessage} from '@/Helper/deviceService'
 
 const props = defineProps({
   onDelete: {
@@ -24,6 +24,10 @@ const fetchDeviceStatus = async () => {
     const res = await getDeviceStatus(props.device.name)
 
     tempValue.value = res.data.last_value ?? 0
+
+    if(tempValue.value >= 100){
+      await sendTelegramMessage(`Nhiệt độ phòng quá cao , hiện nay nhiệt độ là ${tempValue.value} °C `)
+    }
   } catch (e) {
     console.error('Lỗi khi lấy trạng thái thiết bị', e)
   }

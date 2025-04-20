@@ -15,9 +15,6 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 
 
-
-
-
 Route::middleware('auth:sanctum')->group(function () {
 
 //    User Room route
@@ -37,8 +34,6 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::put('/{roomId}', [\App\Http\Controllers\RoomController::class, 'updateRoom']);
             Route::delete('/{roomId}/remove-device/{deviceId}', [\App\Http\Controllers\RoomController::class, 'deleteRoomDevice']);
             Route::delete('/{roomId}', [\App\Http\Controllers\RoomController::class, 'deleteRoom']);
-//            Route::get('/all', [\App\Http\Controllers\RoomController::class, 'getAllRoom']);
-//            Route::get('/{roomId}', [\App\Http\Controllers\RoomController::class, 'getRoom']);
             Route::post('/{roomId}/add-device', [\App\Http\Controllers\RoomController::class, 'addRoomDevice']);
             Route::post('/{userId}/add', [\App\Http\Controllers\RoomController::class, 'addRoomAndOwner']);
         });
