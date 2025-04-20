@@ -12,7 +12,8 @@ const props = defineProps({
     type: Object,
     required: true,
 
-  }
+  },
+  isAdmin : Boolean
 })
 
 
@@ -61,6 +62,7 @@ const toggleLED = async () => {
   >
     <!-- Nút xoá góc phải trên -->
     <button
+      v-if="isAdmin"
       @click="deleteThisDevice"
       class="absolute top-3 right-3 text-gray-400 hover:text-red-600 transition-colors"
       title="Xoá thiết bị"

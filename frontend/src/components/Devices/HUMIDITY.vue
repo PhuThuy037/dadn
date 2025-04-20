@@ -10,7 +10,8 @@ const props = defineProps({
   device: {
     type: Object,
     required: true
-  }
+  },
+  isAdmin : Boolean
 })
 
 const deleteThisDevice = () => {
@@ -45,6 +46,7 @@ const status = computed(() => {
   <div class="relative bg-white border-2 border-blue-200 rounded-2xl p-6 shadow-md hover:shadow-xl transition duration-300">
     <!-- Nút xoá thiết bị -->
     <button
+      v-if="isAdmin"
       @click="deleteThisDevice"
       class="absolute top-3 right-3 text-gray-400 hover:text-red-600 transition-colors"
       title="Xoá thiết bị"

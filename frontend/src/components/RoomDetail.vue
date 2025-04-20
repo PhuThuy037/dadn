@@ -150,6 +150,7 @@ onMounted(async () => {
         :is="deviceComponentMap[device.name]"
         :device="device"
         :onDelete ="deleteDevice"
+        :isAdmin ="isAdmin"
       >
         {{ device.name }} - (Chưa có component)
       </component>

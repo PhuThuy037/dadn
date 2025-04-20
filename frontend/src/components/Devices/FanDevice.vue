@@ -4,7 +4,8 @@ import {toggleDeviceStatus, getDeviceStatus, sendTelegramMessage} from '@/Helper
 
 const props = defineProps({
   device: Object,
-  onDelete: Function
+  onDelete: Function,
+  isAdmin : Boolean
 })
 
 const level = ref(0)
@@ -39,6 +40,7 @@ onMounted(fetchDeviceStatus)
       @click="props.onDelete(props.device.id)"
       class="absolute top-3 right-3 text-gray-400 hover:text-red-600"
       title="Xoá thiết bị"
+      v-if ="isAdmin"
     >
       🗑️
     </button>
