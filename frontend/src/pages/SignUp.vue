@@ -38,7 +38,7 @@ async function submit() {
 </script>
 
 <template>
-  <pre>{{ data }}</pre>
+
   <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
     Create new Account
   </h2>
